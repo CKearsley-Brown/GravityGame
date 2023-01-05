@@ -68,9 +68,9 @@ class MySurfaceView(context: Context?, attrs: AttributeSet?) : SurfaceView(conte
             val canvas : Canvas = myHolder.lockCanvas()
             // TODO: Make this perform in a smoother way
             // The Background
-            //surfaceBackground.setBounds(0,0,canvas.width, canvas.height)
-            //surfaceBackground.draw(canvas)
-            canvas.drawRect(0f,0f,canvas.width.toFloat(),canvas.height.toFloat(),paint)
+            surfaceBackground.setBounds(0,0,canvas.width, canvas.height)
+            surfaceBackground.draw(canvas)
+            //canvas.drawRect(0f,0f,canvas.width.toFloat(),canvas.height.toFloat(),paint)
 
             //Health Bar
             if(player.health == 2)
