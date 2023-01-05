@@ -67,9 +67,15 @@ class ResultFragment : Fragment() {
 
         if (myModel != null) {
             if(myModel.score <= 9)
-                resultBinding.infoText.text = "Sir Isaac Newton was born in 1643 and produced the theory of gravitation in 1684"
-            else if (myModel.score <= 19 && myModel.score >= 10 )
-                resultBinding.infoText.text = "Gravity makes waves that move at light speed"
+                resultBinding.infoText.text = "Sir Isaac Newton was born in 1643 and produced the theory of gravitation in 1684."
+            else if (myModel.score <= 29 && myModel.score >= 10 )
+                resultBinding.infoText.text = "Newton described gravity as an ever-present force."
+            else if (myModel.score <= 59 && myModel.score >= 30 )
+                resultBinding.infoText.text = "The force of gravity is exerted on all nearby objects."
+            else if (myModel.score <= 99 && myModel.score >= 60 )
+                resultBinding.infoText.text = "The more mass an object has, the stronger the force of gravity is."
+            else
+                resultBinding.infoText.text = "Gravity is what holds the planets and moons in orbit."
         }
 
         navController = findNavController()
