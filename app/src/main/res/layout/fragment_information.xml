@@ -44,11 +44,11 @@
         app:layout_constraintTop_toBottomOf="@+id/menuTitle" />
 
     <ScrollView
-        android:id="@+id/leaderboardScroll"
+        android:id="@+id/informationScroll"
         android:layout_width="322dp"
         android:layout_height="450dp"
         android:layout_marginTop="120dp"
-        android:background="#AD555454"
+        android:background="#AD8E8E8E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -59,7 +59,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/howToText"
+                android:id="@+id/informationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />

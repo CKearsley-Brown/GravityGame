@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.ckb.gravitygame.databinding.FragmentHowToBinding
 import com.ckb.gravitygame.databinding.FragmentInformationBinding
 
 // TODO: Rename parameter arguments, choose names that match

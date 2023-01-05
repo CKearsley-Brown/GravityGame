@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.ckb.gravitygame.Result
 import com.ckb.gravitygame.databinding.FragmentGameBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -96,6 +97,9 @@ class GameFragment : Fragment() {
                 if (myModel!=null)
                 {
                     myModel.score = resultTime
+
+                    var result = Result(myModel.name, myModel.score)
+                    myModel.leaderboardList.add(result)
                 }
 
                 navController.navigate(R.id.action_gameFragment_to_resultFragment)

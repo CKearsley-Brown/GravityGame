@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.ckb.gravitygame.databinding.FragmentMenuBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ckb.gravitygame.databinding.FragmentLeaderboardBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,16 +18,17 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MenuFragment.newInstance] factory method to
+ * Use the [LeaderboardFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MenuFragment : Fragment() {
+class LeaderboardFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var menuBinding: FragmentMenuBinding
+    private lateinit var leaderboardBinding: FragmentLeaderboardBinding
     private lateinit var navController: NavController
-    private lateinit var myViewModel: MyViewModel
+    lateinit var myViewModel: MyViewModel
+    lateinit var leaderboardAdapter: LeaderboardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,47 +43,33 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_menu, container, false)
-
-        menuBinding = FragmentMenuBinding.inflate(inflater, container, false)
-
-        return menuBinding.root
+        //return inflater.inflate(R.layout.fragment_leaderboard, container, false)
+        leaderboardBinding = FragmentLeaderboardBinding.inflate(inflater, container, false)
+        return leaderboardBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Recycler View
+        myViewModel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
+        var myModel = myViewModel.myLiveModel.value
+
+        leaderboardBinding.myRecyclerView.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+
+        if (myModel != null)
+        {
+            val leaderboard = myModel.leaderboardList
+            leaderboard.sortByDescending { it.score }
+            leaderboardAdapter = LeaderboardAdapter(leaderboard)
+            leaderboardBinding.myRecyclerView.adapter = leaderboardAdapter
+        }
+
+        //Navigation
         navController = findNavController()
 
-        menuBinding.playButton.setOnClickListener {
-            myViewModel = ViewModelProvider(requireActivity()).get(MyViewModel::class.java)
-
-            var myModel = myViewModel.myLiveModel.value
-
-            if (myModel!=null)
-            {
-                if (menuBinding.nameTextInputText.text?.length != 0)
-                {
-                    myModel.name = menuBinding.nameTextInputText.text.toString()
-                } else
-                {
-                    myModel.name = "Player"
-                }
-            }
-
-            navController.navigate(R.id.action_menuFragment_to_gameFragment)
-        }
-
-        menuBinding.leaderboardButton.setOnClickListener {
-            navController.navigate(R.id.action_menuFragment_to_leaderboardFragment)
-        }
-
-        menuBinding.howToButton.setOnClickListener {
-            navController.navigate(R.id.action_menuFragment_to_howToFragment)
-        }
-
-        menuBinding.informationButton.setOnClickListener {
-            navController.navigate(R.id.action_menuFragment_to_informationFragment)
+        leaderboardBinding.lBackButton.setOnClickListener {
+            navController.navigate(R.id.action_leaderboardFragment_to_menuFragment)
         }
     }
 
@@ -92,12 +80,12 @@ class MenuFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MenuFragment.
+         * @return A new instance of fragment LeaderboardFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MenuFragment().apply {
+            LeaderboardFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

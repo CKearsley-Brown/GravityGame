@@ -63,13 +63,25 @@
         android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="110dp"
         android:backgroundTint="#680D0D"
         android:text="Play"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/menuBackground"
         app:layout_constraintStart_toStartOf="@+id/menuBackground"
         app:layout_constraintTop_toBottomOf="@+id/menuTitle" />
+
+    <Button
+        android:id="@+id/leaderboardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#680D0D"
+        android:text="Leaderboard"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/menuBackground"
+        app:layout_constraintStart_toStartOf="@+id/menuBackground"
+        app:layout_constraintTop_toBottomOf="@+id/playButton" />
 
     <Button
         android:id="@+id/howToButton"
@@ -81,7 +93,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/menuBackground"
-        app:layout_constraintTop_toBottomOf="@+id/playButton" />
+        app:layout_constraintTop_toBottomOf="@+id/leaderboardButton" />
 
     <Button
         android:id="@+id/informationButton"
