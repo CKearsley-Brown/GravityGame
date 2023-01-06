@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/menuTitle" />
 
     <ScrollView
-        android:id="@+id/informationScroll"
+        android:id="@+id/displayFrameLayout"
         android:layout_width="322dp"
         android:layout_height="450dp"
         android:layout_marginTop="120dp"
@@ -62,7 +62,33 @@
                 android:id="@+id/informationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:text="It is often misconstrued that Sir Isaac Newton came up with the theory of gravity after an apple fell on his head. He instead saw the apple fall from the tree and pondered why it fell straight to the ground rather than any other direction."
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/informationText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
+                android:text="After this experience in 1665 or 1666, he worked on providing a theory to explain this, in which the theory of gravity was conceived. Ultimately, he showed that the force that made the apple fall is the same that holds everything on earth and is the same force that keeps moons and planets in their orbits."
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/informationText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
+                android:text="In his life, Newton made many other great contributions to science. Another example is his laws of motion. It is for this reason he is considered of the greatest scientific minds to ever live."
+                android:textColor="#000000"
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
