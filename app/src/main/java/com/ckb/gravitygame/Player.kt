@@ -10,12 +10,16 @@ import android.media.MediaPlayer
 class Player(x: Int, y: Int, width: Int, height: Int, image: Drawable, rect: Rect) : MyGameObject(x, y, width, height, image, rect) {
     var px : Int = 500
     var health : Int = 3
+    var tilt : Boolean = false
 
     override fun move(canvas : Canvas) {
-        if (px > x)
-            x += 50
-        else if (px < x)
-            x -= 50
+        if (tilt == false)
+        {
+            if (px > x)
+                x += 50
+            else if (px < x)
+                x -= 50
+        }
         image.setBounds(x, y, x + width, y + height)
         image.draw(canvas)
     }

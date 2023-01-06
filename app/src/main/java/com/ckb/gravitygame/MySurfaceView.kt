@@ -12,8 +12,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import android.view.View
-import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import kotlin.random.Random
 

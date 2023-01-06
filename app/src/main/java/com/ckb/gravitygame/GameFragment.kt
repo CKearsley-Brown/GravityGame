@@ -1,7 +1,15 @@
 package com.ckb.gravitygame
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +18,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.ckb.gravitygame.Result
 import com.ckb.gravitygame.databinding.FragmentGameBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,13 +30,15 @@ private const val ARG_PARAM2 = "param2"
  * Use the [GameFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GameFragment : Fragment() {
+class GameFragment : Fragment(), SensorEventListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var gameBinding: FragmentGameBinding
     private lateinit var navController: NavController
     private lateinit var myViewModel: MyViewModel
+    lateinit var sensorManager: SensorManager
+    lateinit var accelerometer: Sensor
     private var resultTime : Int = 0
     private val resultTimer = object : CountDownTimer(1000, 1000) {
 
@@ -88,6 +97,27 @@ class GameFragment : Fragment() {
             navController.navigate(R.id.action_gameFragment_to_menuFragment)
         }
 
+        gameBinding.tiltButton.setOnClickListener{
+            if (gameBinding.mySurfaceView.player.tilt == true)
+            {
+                gameBinding.mySurfaceView.player.tilt = false
+                gameBinding.tiltButton.text = "Off"
+                gameBinding.tiltButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#F30C0C")))
+            } else if (gameBinding.mySurfaceView.player.tilt == false)
+            {
+                gameBinding.mySurfaceView.player.tilt = true
+                gameBinding.tiltButton.text = "On"
+                gameBinding.tiltButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#36F30C")))
+            }
+        }
+
+        //Sensor Movement
+        sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+        sensorManager.registerListener(this,accelerometer,SensorManager.SENSOR_STATUS_ACCURACY_LOW)
+
         //Navigation
         gameBinding.mySurfaceView.listener.observe(viewLifecycleOwner, Observer {
             if(gameBinding.mySurfaceView.player.health == 0)
@@ -125,5 +155,24 @@ class GameFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        if(event == null)
+            return
+
+        if(event.sensor.type == Sensor.TYPE_ACCELEROMETER && gameBinding.mySurfaceView.player.tilt) {
+            var x = event.values[0]
+
+            if(x >= 1 && gameBinding.mySurfaceView.player.x > 50)
+            {
+                gameBinding.mySurfaceView.player.x-=50
+            } else if (x <= -1 && gameBinding.mySurfaceView.player.x < gameBinding.mySurfaceView.width - 100) {
+                gameBinding.mySurfaceView.player.x+=50
+            }
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
 }
