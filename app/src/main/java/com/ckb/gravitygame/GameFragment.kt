@@ -38,7 +38,7 @@ class GameFragment : Fragment(), SensorEventListener {
     private lateinit var navController: NavController
     private lateinit var myViewModel: MyViewModel
     lateinit var sensorManager: SensorManager
-    lateinit var accelerometer: Sensor
+    lateinit var gravity: Sensor
     private var resultTime : Int = 0
     private val resultTimer = object : CountDownTimer(1000, 1000) {
 
@@ -114,9 +114,9 @@ class GameFragment : Fragment(), SensorEventListener {
         //Sensor Movement
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        gravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
 
-        sensorManager.registerListener(this,accelerometer,SensorManager.SENSOR_STATUS_ACCURACY_LOW)
+        sensorManager.registerListener(this,gravity,SensorManager.SENSOR_STATUS_ACCURACY_LOW)
 
         //Navigation
         gameBinding.mySurfaceView.listener.observe(viewLifecycleOwner, Observer {
@@ -161,7 +161,7 @@ class GameFragment : Fragment(), SensorEventListener {
         if(event == null)
             return
 
-        if(event.sensor.type == Sensor.TYPE_ACCELEROMETER && gameBinding.mySurfaceView.player.tilt) {
+        if(event.sensor.type == Sensor.TYPE_GRAVITY && gameBinding.mySurfaceView.player.tilt) {
             var x = event.values[0]
 
             if(x >= 1 && gameBinding.mySurfaceView.player.x > 50)

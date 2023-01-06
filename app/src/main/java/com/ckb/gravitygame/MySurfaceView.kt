@@ -16,7 +16,7 @@ import androidx.lifecycle.MutableLiveData
 import kotlin.random.Random
 
 class MySurfaceView(context: Context?, attrs: AttributeSet?) : SurfaceView(context, attrs), Runnable {
-    var paint = Paint()
+    //var paint = Paint()
     val surfaceBackground = context!!.resources.getDrawable(R.drawable.gamebackground, null)
     var isRunning = true
     var myThread: Thread
@@ -49,7 +49,7 @@ class MySurfaceView(context: Context?, attrs: AttributeSet?) : SurfaceView(conte
     }
 
     init {
-        paint.color = Color.WHITE
+        //paint.color = Color.WHITE
         myGameObjects.add(player)
         myThread = Thread(this)
         myThread.start()
